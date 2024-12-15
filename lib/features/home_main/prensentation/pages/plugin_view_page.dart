@@ -74,37 +74,43 @@ class PluginViewPage extends StatelessWidget {
     String randomPaymentCode = _generateRandomPaymentCodeString();
     return Column(
       children: [
-        const SizedBox(height: 100),
-        Center(
-          child: Stack(
-            clipBehavior: Clip.none,
+        Expanded(
+          child: ListView(
             children: [
-              Container(
-                height: 220,
-                decoration: BoxDecoration(
-                  color: AppColors.buttonColor,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: ClipPath(
-                  clipper: BottomRightTriangleClipper(),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryColor,
-                      borderRadius: BorderRadius.circular(15),
+              const SizedBox(height: 100),
+              Center(
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Container(
+                      height: 220,
+                      decoration: BoxDecoration(
+                        color: AppColors.buttonColor,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: ClipPath(
+                        clipper: BottomRightTriangleClipper(),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    Positioned(
+                      top: -80,
+                      left: 0,
+                      right: 0,
+                      child: qrCode(randomPaymentCode),
+                    ),
+                  ],
                 ),
-              ),
-              Positioned(
-                top: -80,
-                left: 0,
-                right: 0,
-                child: qrCode(randomPaymentCode),
               ),
             ],
           ),
         ),
-        const Spacer(),
+        const SizedBox(height: 30,),
         PrimaryButtonLight(
           btnText: (state as PluginViewDataFetchState).lastLoginModelList.isNotEmpty
               ? "Last Login at ${FormattedDateTime.formatDate((state).lastLoginModelList.first.dateTime)}"
@@ -132,6 +138,7 @@ class PluginViewPage extends StatelessWidget {
       ],
     );
   }
+
 
   Widget qrCode(String randomPaymentCode) {
     return SizedBox(

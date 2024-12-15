@@ -37,7 +37,7 @@ class SignInPage extends StatelessWidget {
             isLogoutEnable: false,
             body: signInState is SignInStateLoading  ?
             const Center(child: CircularProgressIndicator())
-                :Column(
+                : ListView(
               children: [
                 const SizedBox(height: 60,),
                 PrimaryTextField(controller: _phoneNumberController, hint: "Phone number"),
